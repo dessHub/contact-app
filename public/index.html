@@ -1,0 +1,97 @@
+<!DOCTYPE>
+<html ng-app="">
+<head>
+<title>Contact app</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+</head>
+<body>
+  <div class="container" ng-controller="appCtrl">
+<h3> EVERYTHING IS COOL</H3>
+
+  <table class="table">
+<thead>
+<tr>
+<th>NAME</th>
+<th>E-MAIL</th>
+<th>CONTACTS</th>
+<th>ACTIONS</th>
+<th>&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+  <tr>
+<td><input class="form-control" ng-model="cont.name"></td>
+<td><input class="form-control" ng-model="cont.email"></td>
+<td><input class="form-control" ng-model="cont.contact"></td>
+<td><button class="btn btn-success" ng-click="addContact()">Add contact</td>
+<td><button class="btn btn-info" ng-click="update()">Update</button>&nbsp;&nbsp;<button class="btn btn-info" ng-click="deselect()">Clear</button> </td>
+
+  </tr>
+<tr ng-repeat = "x in contacts">
+<td>{{x.name}}</td>
+<td>{{x.email}}</td>
+<td>{{x.contact}}</td>
+<td><button class="btn btn-danger" ng-click="remove(x._id)">Remove</td>
+<td><button class="btn btn-warning" ng-click="edit(x._id)">Edit</td>
+
+</tr>
+</tbody>
+  </table>
+</div>
+<script>
+
+function appCtrl($scope, $http) {
+  var refresh = function(){
+$http.get('/contacts').success(function(response){
+  console.log(response);
+  $scope.contacts = response;
+  $scope.cont="";
+});
+};
+refresh();
+
+$scope.addContact = function(){
+  console.log($scope.cont);
+  $http.post('/contacts', $scope.cont).success(function(response){
+    refresh();
+
+  });
+};
+
+$scope.remove = function(id){
+  console.log(id);
+  $http.delete('/contacts/'+ id).success(function(response){
+    refresh();
+  });
+};
+
+$scope.edit = function(id){
+  $http.get('/contacts/'+ id).success(function(response){
+    $scope.cont = response;
+  })
+}
+
+$scope.update = function(id){
+  $http.put('/contacts/'+ $scope.cont._id, $scope.cont).success(function(response){
+    refresh();
+    console.log(response);
+  });
+};
+
+$scope.deselect = function(){
+  $scope.cont = "";
+}
+
+}
+
+
+</script>
+  <!-- Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28/angular.min.js"></script>
+
+</body>
+</html>
