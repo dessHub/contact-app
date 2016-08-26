@@ -1,0 +1,23 @@
+{
+  "name": "contactapi",
+  "version": "1.0.0",
+  "description": "simple contact list app",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dessHub/contact-app.git"
+  },
+  "author": "desshub",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dessHub/contact-app/issues"
+  },
+  "homepage": "https://github.com/dessHub/contact-app#readme"
+}
