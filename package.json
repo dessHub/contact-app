@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "simple contact list app",
   "main": "server.js",
+  "engines" : {
+    "node" : "4.2.6"
+  },
   "dependencies": {
     "express": "^4.14.0"
   },
